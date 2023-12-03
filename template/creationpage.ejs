@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quiz Form</title>
+    <style>
+        .question-container {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Quiz Form</h1>
+
+<form id="quizForm" onsubmit="submitQuizz(event)">
+
+    <label for="name">Name:</label>
+    <input type="text" name="name" required>
+
+    <label for="category">Category:</label>
+    <input type="text" name="category" required>
+
+    <div class="question-container">
+        <label for="question1">Question 1:</label>
+        <input type="text" name="question1" required>
+        <button type="button" onclick="addAnswerField(1)">Add Answer</button>
+        <div id="answersContainer1"></div>
+    </div>
+
+    <button type="button" onclick="addQuestionField()">Add Question</button>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    let questionCounter = 1;
+
+    function addAnswerField(questionNumber) {
+        const answersContainer = document.getElementById(`answersContainer${questionNumber}`);
+        const answerInput = document.createElement('input');
+        answerInput.type = 'text';
+        answerInput.name = `answer${questionNumber}[]`;
+        answerInput.placeholder = 'Enter answer';
+        answersContainer.appendChild(answerInput);
+    }
+
+    function addQuestionField() {
+        questionCounter++;
+        const form = document.getElementById('quizForm');
+
+        const questionContainer = document.createElement('div');
+        questionContainer.classList.add('question-container');
+
+        const label = document.createElement('label');
+        label.htmlFor = `question${questionCounter}`;
+        label.textContent = `Question ${questionCounter}:`;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = `question${questionCounter}`;
+        input.required = true;
+
+        const addButton = document.createElement('button');
+        addButton.type = 'button';
+        addButton.textContent = 'Add Answer';
+        addButton.onclick = () => addAnswerField(questionCounter);
+
+        const answersContainer = document.createElement('div');
+        answersContainer.id = `answersContainer${questionCounter}`;
+
+        questionContainer.appendChild(label);
+        questionContainer.appendChild(input);
+        questionContainer.appendChild(addButton);
+        questionContainer.appendChild(answersContainer);
+
+        form.insertBefore(questionContainer, form.lastElementChild);
+    }
+
+    function submitQuizz(event) {
+        event.preventDefault();
+
+        // get today's date (DD-MM-YY)
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()%100}`;
+        
+        let user = <%- JSON.stringify(username) %>;
+        const formData = {
+            quizz: [],
+            from: user,
+            like: 0,
+            name: document.getElementsByName('name')[0].value,
+            date: formattedDate,
+            category: document.getElementsByName('category')[0].value,
+        };
+
+        for (let i = 1; i <= questionCounter; i++) {
+            const question = document.getElementsByName(`question${i}`)[0].value;
+            const answers = Array.from(document.getElementsByName(`answer${i}[]`)).map(answerInput => answerInput.value);
+            formData.quizz.push([question, answers]);
+        }
+
+        fetch('/creationpage.html', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data: formData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Handle success, if needed
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error, if needed
+            });
+    }
+</script>
+
+</body>
+</html>

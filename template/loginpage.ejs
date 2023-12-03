@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="styles/mainpage.css">
+		<title>connection</title>
+	</head>
+	<body>
+		<%= username %>
+		<% if (error_login) { %>
+			<div>
+				Utilisateur invalide : adresse email ou mot de passe incorrect.
+			</div>
+		<% } %>
+
+		<div>
+			<h2>Se connecter</h2>
+			<form action="loginpage.html" method="post">
+				<input type="text" name="loginUsername" id="loginUsername" required placeholder="Nom d'Utilisateur">
+				<input type="password" name="loginPassword" id="loginPassword" required placeholder="Mot de Passe">
+				<button type="submit" class="btn">Connexion</button>
+			</form>
+		</div>
+		<br>
+		<h2>OU</h2>
+		<br>
+
+		<% if (error_register) { %>
+			<div>
+				Utilisateur invalide : l'adresse email ou le nom d'utilisateur est déjà utilisé.
+			</div>
+		<% } %>
+
+		<div>
+			<h2>S'enregistrer</h2>
+			<form action="loginpage.html" method="post">
+				<input type="text" name="registerUsername" id="registerUsername" required placeholder="Nom d'Utilisateur">
+				<input type="password" name="registerPassword" id="registerPassword" required placeholder="Mot de Passe">
+				<button type="submit" class="btn">S'enregistrer</button>
+			</form>
+		</div>
+	</body>
+</html>
