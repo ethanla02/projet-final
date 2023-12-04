@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <link rel="stylesheet" href="mainpage.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Quiz Form</title>
     <style>
@@ -12,6 +14,16 @@
     </style>
 </head>
 <body>
+<nav>
+    <a href="mainpage.html"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
+    <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercer un quiz" size="80%" height="50%"  />
+    <ul>
+        <li><a href="/mainpage.html" class = "active">accueil</a></li>
+        <li><a href="/classement.html">classement</a></li>
+        <li><a href="/créationpage.html">créer un quiz</a></li>
+        <li><a href="/loginpage.html"><%= username %></a></li>
+    </ul>
+</nav>
 <h1>Quiz Form</h1>
 
 <form id="quizForm" onsubmit="submitQuizz(event)">
