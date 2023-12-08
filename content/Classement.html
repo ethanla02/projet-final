@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Classement</title>
+    <link rel="stylesheet" href="mainpage.css" />
+    <link rel="icon" type="image/x-icon" href="logo.jpg" />
+  </head>
+  <body>
+    <nav>
+      <a href="mainpage.html"
+        ><img
+          src="logo.jpg"
+          alt="logo hoot'let"
+          style="float: left"
+          height="100px"
+      /></a>
+      <input
+        style="margin-bottom: 0px a; display: inline"
+        name="research"
+        id="research"
+        type="search"
+        placeholder="Rechercer un quiz"
+        size="80%"
+        height="50%"
+      />
+      <ul>
+        <li><a href="/mainpage.ejs" class="active">accueil</a></li>
+        <li><a href="/classement.html">classement</a></li>
+        <li><a href="/creationpage.html">créer un quiz</a></li>
+        <li><a href="/loginpage.html"><%= username %></a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>Classement</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Date</th>
+            <th>Parties jouées</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Doe</td>
+            <td>01/01/2023</td>
+            <td>250</td>
+            <td>250</td>
+          </tr>
+          <tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+            <tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+          </tr><tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+          </tr><tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+          </tr><tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+          </tr><tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+          </tr><tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+          </tr><tr>
+            <td>Jane Smith</td>
+            <td>05/01/2023</td>
+            <td>250</td>
+            <td>300</td>
+          </tr>
+          </tr>
+          <!-- Ajoute d'autres lignes ici avec plus de données -->
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

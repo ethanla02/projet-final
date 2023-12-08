@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="mainpage.css" />
+    <link rel="icon" type="image/x-icon" href="logo.jpg" />
+    <title>Connexion</title>
+  </head>
+  <body>
+    <nav>
+      <a href="mainpage.html"
+        ><img
+          src="logo.jpg"
+          alt="logo hoot'let"
+          style="float: left"
+          height="100px"
+      /></a>
+      <input
+        style="margin-bottom: 0px a; display: inline"
+        name="research"
+        id="research"
+        type="search"
+        placeholder="Rechercer un quiz"
+        size="80%"
+        height="50%"
+      />
+      <ul>
+        <li><a href="/mainpage.ejs" class="active">accueil</a></li>
+        <li><a href="/classement.html">classement</a></li>
+        <li><a href="/creationpage.html">créer un quiz</a></li>
+        <li><a href="/loginpage.html"><%= username %></a></li>
+      </ul>
+    </nav>
+    <div class="container2">
+      <h2>Se connecter</h2>
+      <form>
+        <label for="loginEmail">Adresse email:</label>
+        <input type="email" name="loginEmail" required />
+        <label for="loginPassword">Mot de Passe:</label>
+        <input type="password" name="loginPassword" required />
+        <button type="submit" class="btn">Connexion</button>
+      </form>
+    </div>
+    <br />
+    <h2>OU</h2>
+    <br />
+    <div class="container2">
+      <h2>S'enregistrer</h2>
+      <form>
+        <label for="registerName">Nom Complet:</label>
+        <input type="text" name="registerName" required />
+        <label for="registerNickname">Nom d'Utilisateur:</label>
+        <input type="text" name="registerNickname" required />
+        <label for="registerEmail">Adresse email:</label>
+        <input type="email" name="registerEmail" required />
+        <label for="registerPassword">Mot de Passe:</label>
+        <input type="password" name="registerPassword" required />
+        <button type="submit" class="btn">S'enregistrer</button>
+      </form>
+    </div>
+  </body>
+</html>
