@@ -10,6 +10,10 @@ body {
   font-size: 0.9em;
   font-family: sans-serif;
 }
+input {
+  display: block;
+  margin-bottom: 10px;
+}
 .button {
   background-color: #c3e4f2;
   border-radius: 8px;
@@ -160,11 +164,14 @@ h1 {
   gap: 10px;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+.login_container {
+	max-width: 400px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	text-align: center;
 }
 
 /* Ajoute d'autres styles CSS si nécessaire */
@@ -180,4 +187,15 @@ h2 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.error-message {
+  color: rgb(189, 9, 9);
+  text-align: center;
+  padding: 10px;
+}
+
+.form-fields {
+	padding : 10 px;
+	display: inline-block;
 }
