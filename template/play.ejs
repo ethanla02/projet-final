@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="mainpage.css">
+    <title>Accueil</title>
+    <link rel="icon" type="image/x-icon" href="logo.jpg">
+</head>
+<body>
+<nav>
+    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
+    <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercer un quiz" size="80%" height="50%"  />
+    <ul>
+        <li><a href="/" class = "active">accueil</a></li>
+        <li><a href="/classement">classement</a></li>
+        <li><a href="/creation">créer un quiz</a></li>
+        <li><a href="/login"><%= username %></a></li>
+    </ul>
+</nav>
+<div><%= quiz.from %></div>
+</body>
