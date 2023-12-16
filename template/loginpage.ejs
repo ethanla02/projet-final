@@ -8,24 +8,24 @@
 </head>
 <body>
 <nav>
-    <a href="mainpage.html"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
+    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
     <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercer un quiz" size="80%" height="50%"  />
     <ul>
-        <li><a href="/mainpage.html" class = "active">accueil</a></li>
-        <li><a href="/classement.html">classement</a></li>
-        <li><a href="/créationpage.html">créer un quiz</a></li>
-        <li><a href="/loginpage.html"><%= username %></a></li>
+        <li><a href="/" class = "active">accueil</a></li>
+        <li><a href="/classement">classement</a></li>
+        <li><a href="/creation">créer un quiz</a></li>
+        <li><a href="/login"><%= username %></a></li>
     </ul>
 </nav>
 		<% if (error_login) { %>
-			<div>
-				Utilisateur invalide : adresse email ou mot de passe incorrect.
+			<div class="error-message">
+				Utilisateur invalide : nom d'utilisateur ou mot de passe incorrect.
 			</div>
 		<% } %>
 
-		<div>
+		<div class="login_container">
 			<h2>Se connecter</h2>
-			<form action="loginpage.html" method="post">
+			<form action="login" method="post" class="form-fields">
 				<input type="text" name="loginUsername" id="loginUsername" required placeholder="Nom d'Utilisateur">
 				<input type="password" name="loginPassword" id="loginPassword" required placeholder="Mot de Passe">
 				<button type="submit" class="btn">Connexion</button>
@@ -36,14 +36,14 @@
 		<br>
 
 		<% if (error_register) { %>
-			<div>
-				Utilisateur invalide : l'adresse email ou le nom d'utilisateur est déjà utilisé.
+			<div class="error-message">
+				Utilisateur invalide : le nom d'utilisateur est déjà utilisé.
 			</div>
 		<% } %>
 
-		<div>
+		<div class="login_container">
 			<h2>S'enregistrer</h2>
-			<form action="loginpage.html" method="post">
+			<form action="login" method="post" class="form-fields">
 				<input type="text" name="registerUsername" id="registerUsername" required placeholder="Nom d'Utilisateur">
 				<input type="password" name="registerPassword" id="registerPassword" required placeholder="Mot de Passe">
 				<button type="submit" class="btn">S'enregistrer</button>
