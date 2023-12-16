@@ -15,13 +15,13 @@
 </head>
 <body>
 <nav>
-    <a href="mainpage.html"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
+    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
     <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercer un quiz" size="80%" height="50%"  />
     <ul>
-        <li><a href="/mainpage.html" class = "active">accueil</a></li>
-        <li><a href="/classement.html">classement</a></li>
-        <li><a href="/créationpage.html">créer un quiz</a></li>
-        <li><a href="/loginpage.html"><%= username %></a></li>
+        <li><a href="/" class = "active">accueil</a></li>
+        <li><a href="/classement">classement</a></li>
+        <li><a href="/creation">créer un quiz</a></li>
+        <li><a href="/login"><%= username %></a></li>
     </ul>
 </nav>
 <h1>Quiz Form</h1>
@@ -90,7 +90,7 @@
         form.insertBefore(questionContainer, form.lastElementChild);
     }
 
-    function submitQuizz(event) {
+    async function submitQuizz(event) {
         event.preventDefault();
 
         // get today's date (DD-MM-YY)
@@ -113,7 +113,7 @@
             formData.quizz.push([question, answers]);
         }
 
-        fetch('/creationpage.html', {
+        fetch('/creation', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -124,10 +124,10 @@
             .then(data => {
                 console.log('Success:', data);
                 // Handle success, if needed
+                window.location.href = '/';
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle error, if needed
             });
     }
 </script>
