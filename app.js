@@ -26,6 +26,7 @@ app.use(
 
 // init MongoDB
 const MongoClient = require("mongodb").MongoClient;
+const { ObjectId } = require('mongodb');
 var url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 const dbName = "DataQuizz";
@@ -38,13 +39,15 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
+
 app.get("/", async (req, res) => {
   const username = req.session.username || "Se connecter";
   let quizzData = await Quizz.find().toArray();
   res.render("mainpage.ejs", { username: username, data: quizzData });
 });
 
-app.get("/loginpage.ejs", (req, res) => {
+
+app.get("/login", (req, res) => {
   const username = req.session.username || "Se connecter";
   res.render("loginpage.ejs", {
     username: username,
@@ -53,7 +56,7 @@ app.get("/loginpage.ejs", (req, res) => {
   });
 });
 
-app.post("/loginpage.ejs", async (req, res) => {
+app.post("/login", async (req, res) => {
   if (!req.body.registerUsername) {
     // user wants to login
     let user = await User.findOne({
@@ -108,39 +111,57 @@ app.post("/loginpage.ejs", async (req, res) => {
   }
 });
 
-app.get("/creationpage.ejs", (req, res) => {
+
+app.get("/creation", (req, res) => {
   if (req.session.username) {
     // verify user connected
     const username = req.session.username || "Se connecter";
     res.render("creationpage.ejs", { username: username });
   } else {
     // if not connected, redirect to login page
-    res.render("loginpage.ejs", {
-      username: "Se connecter",
-      error_login: false,
-      error_register: false,
-    });
+    res.redirect("/login");
   }
 });
 
-app.post("/creationpage.ejs", async (req, res) => {
-  if (req.session.username) {
-    // verify user connected
+app.post("/creation", async (req, res) => {
+  if (req.session.username) { // verify user connected
     // add new submission to DataBase
     let new_quizz = req.body.data;
     res.json({ status: "success", message: "Data received successfully" });
     await Quizz.insertOne(new_quizz);
-    let quizzData = await Quizz.find().toArray();
-    res.render("mainpage.ejs", {
-      username: req.session.username,
-      data: quizzData,
-    });
   } else {
     // if not connected, redirect to login page
-    res.render("loginpage.ejs", {
-      username: "Se connecter",
-      error_login: false,
-      error_register: false,
-    });
+    res.redirect("/login");
   }
+});
+
+
+app.get("/classement", (req, res) => {
+  const username = req.session.username || "Se connecter";
+  res.render("classement.ejs", {
+    username: username,
+    error_login: false,
+    error_register: false,
+  });
+});
+
+
+app.get("/play", async (req, res) => {  
+  const username = req.session.username || "Se connecter";
+  if (req.session.quiz) {
+    res.render("play.ejs", {
+      username: username,
+      quiz: req.session.quiz
+    });
+  } else {
+    res.redirect("/");
+  };
+});
+
+app.post("/play", async (req, res) => {
+  console.log(req.body.quizId);
+  let quiz = await Quizz.findOne({ _id: new ObjectId(req.body.quizId) });
+  req.session.quiz = quiz;
+  console.log(req.session.quiz);
+  res.json({ status: "success", message: "Data received successfully" });
 });
