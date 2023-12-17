@@ -30,8 +30,8 @@ const { ObjectId } = require('mongodb');
 var url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 const dbName = "DataQuizz";
-const Quizz = client.db(dbName).collection("Quizz"); // Quizz( {quizz: [[Q,[R]],...], from, like, name, date, category} )
-const User = client.db(dbName).collection("User"); // User( {username, password, score} )
+const Quiz = client.db(dbName).collection("Quizz"); // Quiz( {quiz: [[Q,[R]],...], from, like, name, date, category} )
+const User = client.db(dbName).collection("User"); // User( {username, password, score, likedQuiz: []} )
 
 client.connect().then(console.log("Successful MongoDB connection"));
 
@@ -42,8 +42,8 @@ app.listen(PORT, () => {
 
 app.get("/", async (req, res) => {
   const username = req.session.username || "Se connecter";
-  let quizzData = await Quizz.find().toArray();
-  res.render("mainpage.ejs", { username: username, data: quizzData });
+  let quizData = await Quiz.find().toArray();
+  res.render("mainpage.ejs", { username: username, data: quizData });
 });
 
 
@@ -66,7 +66,7 @@ app.post("/login", async (req, res) => {
     if (user) {
       // verify user in DataBase
       req.session.username = user.username;
-      let quizzData = await Quizz.find().toArray();
+      let quizzData = await Quiz.find().toArray();
       res.render("mainpage.ejs", {
         username: req.session.username,
         data: quizzData,
@@ -91,10 +91,11 @@ app.post("/login", async (req, res) => {
         username: req.body.registerUsername,
         password: req.body.registerPassword,
         score: 0,
+        likedQuiz: [],
       };
       await User.insertOne(new_user);
       req.session.username = req.body.registerUsername;
-      let quizzData = await Quizz.find().toArray();
+      let quizzData = await Quiz.find().toArray();
       res.render("mainpage.ejs", {
         username: req.session.username,
         data: quizzData,
@@ -128,7 +129,7 @@ app.post("/creation", async (req, res) => {
     // add new submission to DataBase
     let new_quizz = req.body.data;
     res.json({ status: "success", message: "Data received successfully" });
-    await Quizz.insertOne(new_quizz);
+    await Quiz.insertOne(new_quizz);
   } else {
     // if not connected, redirect to login page
     res.redirect("/login");
@@ -159,9 +160,45 @@ app.get("/play", async (req, res) => {
 });
 
 app.post("/play", async (req, res) => {
-  console.log(req.body.quizId);
-  let quiz = await Quizz.findOne({ _id: new ObjectId(req.body.quizId) });
+  let quiz = await Quiz.findOne({ _id: new ObjectId(req.body.quizId) });
   req.session.quiz = quiz;
-  console.log(req.session.quiz);
   res.json({ status: "success", message: "Data received successfully" });
+});
+
+app.post("/like", async (req, res) => {
+  const quizId = new ObjectId(req.body.quizId);
+
+  if (!req.session.username) {
+    return res.status(404).json({ status: "error", message: "User not found" });
+  };
+
+  // Check if the quiz is already liked by the user
+  const user = await User.findOne({ username: req.session.username, likedQuiz: quizId });
+
+  if (user) {
+    // If the quiz is already liked, unlike it
+    await User.findOneAndUpdate(
+      {username: req.session.username}, 
+      { $pull: { likedQuiz: quizId } }
+    );
+
+    // Use $inc to decrement the like count
+    await Quiz.findOneAndUpdate(
+      { _id: quizId },
+      { $inc: { like: -1 } }, // Decrement like by 1
+    );
+
+    res.json({ status: "success", message: "Quiz unliked successfully" });
+  } else {
+    // If the quiz is not liked, like it
+    await User.findOneAndUpdate({username: req.session.username}, { $push: { likedQuiz: quizId } });
+
+    // Use $inc to increment the like count
+    await Quiz.findOneAndUpdate(
+      { _id: quizId },
+      { $inc: { like: 1 } }, // Increment like by 1
+    );
+
+    res.json({ status: "success", message: "Quiz liked successfully" });
+  }
 });
