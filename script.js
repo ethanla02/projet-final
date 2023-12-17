@@ -50,7 +50,7 @@ function renderQuizzes(data) {
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:', data);
-                    // Handle success, if needed
+                    // Handle success
                     window.location.href = '/play';
                 })
                 .catch(error => {
@@ -67,6 +67,29 @@ function renderQuizzes(data) {
         // Create button for Like
         let likeButton = document.createElement('button');
         likeButton.classList.add('coeur');
+
+        (function (currentQuiz) {
+            likeButton.addEventListener('click', async function (event) {
+                // Perform a POST request when the button is clicked
+                fetch('/like', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ quizId: currentQuiz._id }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Handle success
+                    window.location.href = '/';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        })(quiz);
+
         let heartImage = document.createElement('img');
         heartImage.src = 'coeur.png';
         heartImage.style.width = '40px';
