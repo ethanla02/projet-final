@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const path = require("path");
 const session = require("express-session");
 const PORT = process.env.PORT || 3000;
 app.set("view engine", "ejs");
@@ -67,10 +66,7 @@ app.post("/login", async (req, res) => {
       // verify user in DataBase
       req.session.username = user.username;
       let quizzData = await Quiz.find().toArray();
-      res.render("mainpage.ejs", {
-        username: req.session.username,
-        data: quizzData,
-      });
+      res.redirect("/");
     } else {
       const username = req.session.username || "Se connecter";
       res.render("loginpage.ejs", {
@@ -85,8 +81,7 @@ app.post("/login", async (req, res) => {
     let verify_username = await User.findOne({
       username: req.body.registerUsername,
     });
-    if (!verify_username) {
-      // verify if username is not already used
+    if (!verify_username) { // verify if username is not already used
       let new_user = {
         username: req.body.registerUsername,
         password: req.body.registerPassword,
@@ -96,10 +91,7 @@ app.post("/login", async (req, res) => {
       await User.insertOne(new_user);
       req.session.username = req.body.registerUsername;
       let quizzData = await Quiz.find().toArray();
-      res.render("mainpage.ejs", {
-        username: req.session.username,
-        data: quizzData,
-      });
+      res.redirect("/");
     } else {
       // if username is already used
       const username = req.session.username || "Se connecter";
@@ -141,8 +133,6 @@ app.get("/classement", (req, res) => {
   const username = req.session.username || "Se connecter";
   res.render("classement.ejs", {
     username: username,
-    error_login: false,
-    error_register: false,
   });
 });
 
@@ -164,6 +154,18 @@ app.post("/play", async (req, res) => {
   req.session.quiz = quiz;
   res.json({ status: "success", message: "Data received successfully" });
 });
+
+app.post("/endquiz", async (req, res) => {
+  let score = req.body.score;
+  if (req.session.username) {
+    await User.findOneAndUpdate(
+      { username: req.session.username },
+      { $inc: { score: score } },
+    );
+  };
+  res.json({ status: "success", message: "Data received successfully" });
+});
+
 
 app.post("/like", async (req, res) => {
   const quizId = new ObjectId(req.body.quizId);
