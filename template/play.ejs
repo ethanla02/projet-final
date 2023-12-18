@@ -1,15 +1,44 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="mainpage.css">
     <title>Accueil</title>
     <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <title>Quiz Game</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    #quiz-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    #question {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    #options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    </style>
 </head>
 <body>
 <nav>
-    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
-    <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercer un quiz" size="80%" height="50%"  />
+    <a href="/"><img src="logo.png" alt="logo hoot'let" style="float:left" height=100px ></a>
+    <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercher un quiz" size="80%" height="50%"  />
     <ul>
         <li><a href="/" class = "active">accueil</a></li>
         <li><a href="/classement">classement</a></li>
@@ -17,5 +46,15 @@
         <li><a href="/login"><%= username %></a></li>
     </ul>
 </nav>
-<div><%= quiz.from %></div>
+
+<div id="quiz-container">
+  <div id="question"></div>
+  <div id="options"></div>
+</div>
+
+<script src="/play.js"></script>
+<script>
+    game(<%- JSON.stringify(quiz || []) %>);
+</script>
 </body>
+</html>
