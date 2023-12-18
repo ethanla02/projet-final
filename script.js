@@ -22,14 +22,18 @@ function renderQuizzes(data) {
         quizDiv.classList.add('quiz');
 
         // Create h3 element for Name Creator
-        let nameCreator = document.createElement('h3');
+        let nameCreator = document.createElement('h4');
         nameCreator.textContent = quiz.from;
+        nameCreator.style.marginTop = '10px';
+        nameCreator.style.textAlign = 'left';
+        nameCreator.style.paddingLeft = '23px';
 
         // Create a button with a link for Name Quiz
         let nameQuizButton = document.createElement('button');
         nameQuizButton.classList.add('button');
         nameQuizButton.setAttribute('name', 'quiz');
         nameQuizButton.textContent = quiz.name;
+        nameQuizButton.style.marginTop = '15px';
 
         let quizLink = document.createElement('a');
         quizLink.href = '/';
@@ -59,10 +63,17 @@ function renderQuizzes(data) {
             });
         })(quiz);
 
+        // Create container div for Like Count and Like Button
+        let likeContainer = document.createElement('div');
+        likeContainer.style.display = 'flex';
+        likeContainer.style.justifyContent = 'right';
+        likeContainer.style.paddingRight = '18px';
+
         // Create h4 element for Like Count
         let likeCount = document.createElement('h4');
         likeCount.classList.add('compteur-like');
         likeCount.textContent = `${quiz.like}`;
+        likeCount.style.marginTop = '9px';
 
         // Create button for Like
         let likeButton = document.createElement('button');
@@ -92,15 +103,18 @@ function renderQuizzes(data) {
 
         let heartImage = document.createElement('img');
         heartImage.src = 'coeur.png';
-        heartImage.style.width = '40px';
-        heartImage.style.height = '40px';
+        heartImage.style.width = '30px';
+        heartImage.style.height = '30px';
         likeButton.appendChild(heartImage);
+
+        // Append Like Count and Like Button to the container
+        likeContainer.appendChild(likeCount);
+        likeContainer.appendChild(likeButton);
 
         // Append all elements to the quiz div
         quizDiv.appendChild(nameCreator);
         quizDiv.appendChild(quizLink);
-        quizDiv.appendChild(likeCount);
-        quizDiv.appendChild(likeButton);
+        quizDiv.appendChild(likeContainer);
 
         // Append the quiz div to the container
         quizContainer.appendChild(quizDiv);
