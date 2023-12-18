@@ -3,10 +3,10 @@ nav {
   justify-content: space-between;
   justify-items: center;
   align-items: center;
-  background: #75e4ff;
+  background: #bee2f2;
 }
 body {
-  background-color: #dcfff5;
+  background-color: #e4eef2;
   font-size: 0.9em;
   font-family: sans-serif;
 }
@@ -21,21 +21,22 @@ input {
   color: black;
   cursor: pointer;
   display: inline-block;
-  height: 75px;
-  width: 75px;
+  height: 40px;
+  width: 250px;
   line-height: 20px;
   margin: 0;
   padding: 0 20px;
   position: relative;
   text-align: center;
   vertical-align: auto;
+  font-size: medium;
 }
 .button:hover {
   background-color: aliceblue;
 }
 #research {
   position: relative;
-  background-color: #75e4ff;
+  background-color: #f0f0f0;
   border-radius: 50px 50px 50px 50px;
   padding: 10px 20px 10px 20px;
   border: 10px;
@@ -87,12 +88,12 @@ nav ul li:hover::after {
   margin-top: 50px;
 }
 .quiz {
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 300px;
+  min-height: 40px;
   height: auto;
-  background: #4b92ad;
-  border: solid #074b65 5px;
-  border-radius: 50px;
+  background: #205d75;
+  border: solid #074b65 2px;
+  border-radius: 20px;
   backdrop-filter: blur(15px);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
@@ -178,6 +179,10 @@ h1 {
 
 h2 {
   text-align: center;
+}
+
+h4 {
+  color: white;
 }
 
 .btn {
