@@ -204,3 +204,6 @@ app.post("/like", async (req, res) => {
     res.json({ status: "success", message: "Quiz liked successfully" });
   }
 });
+app.get('*', (req, res) => {
+  res.status(404).redirect('404.html');
+});
