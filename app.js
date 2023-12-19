@@ -204,6 +204,8 @@ app.post("/like", async (req, res) => {
     res.json({ status: "success", message: "Quiz liked successfully" });
   }
 });
-app.get('*', (req, res) => {
-  res.status(404).redirect('404.html');
+
+app.use(function(req,res){
+  const username = req.session.username || "Se connecter";
+  res.status(404).render('404.ejs',{ username: username});
 });
