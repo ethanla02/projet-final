@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="mainpage.css">
     <title>Accueil</title>
-    <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <link rel="icon" type="image/x-icon" href="logo.png">
 </head>
 <body>
 <nav>
-    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
+    <a href="/"><img src="logo.png" alt="logo hoot'let" style="float:left" height=100px ></a>
     <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercher un quiz" size="80%" height="50%"  />
     <ul>
-        <li><a href="/" class = "active">accueil</a></li>
-        <li><a href="/classement">classement</a></li>
-        <li><a href="/creation">créer un quiz</a></li>
+        <li><a href="/" class = "active">Accueil</a></li>
+        <li><a href="/classement">Classement</a></li>
+        <li><a href="/creation">Créer un quiz</a></li>
         <li><a href="/login"><%= username %></a></li>
+        <% if (username != "Se connecter") { %>
+			<li><a href="/profil">Profil</a></li>
+		<% } %>
     </ul>
 </nav>
 <div class="quiz-wrapper" id="quiz-container"></div>
@@ -22,6 +25,9 @@
 <script src="/script.js"></script>
 <script>
     // is run every time this page is loaded, set inner HTML
+    const appPath = "/like";
+    const imgPath = "coeur.png";
+    const goTo = "/";
     create_table(<%- JSON.stringify(data || []) %>);
 </script>
 </html>
