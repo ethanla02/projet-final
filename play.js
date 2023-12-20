@@ -49,12 +49,12 @@ function game(quiz, score = 0, currentQuestionIndex = 0, correctIndex = 0) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ score: score })
+            body: JSON.stringify({ score: score, total:  quiz.quiz.length})
         })
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            window.location.href = '/';
+            window.location.href = '/end';
         })
         .catch(error => {
             console.error('Error:', error);
