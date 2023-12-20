@@ -65,7 +65,6 @@ app.post("/login", async (req, res) => {
     if (user) {
       // verify user in DataBase
       req.session.username = user.username;
-      let quizzData = await Quiz.find().toArray();
       res.redirect("/");
     } else {
       const username = req.session.username || "Se connecter";
@@ -90,7 +89,6 @@ app.post("/login", async (req, res) => {
       };
       await User.insertOne(new_user);
       req.session.username = req.body.registerUsername;
-      let quizzData = await Quiz.find().toArray();
       res.redirect("/");
     } else {
       // if username is already used
@@ -129,11 +127,39 @@ app.post("/creation", async (req, res) => {
 });
 
 
-app.get("/classement", (req, res) => {
+app.get("/classement", async (req, res) => {
   const username = req.session.username || "Se connecter";
+  const users = await User.find().sort({ score: -1}).toArray();
   res.render("classement.ejs", {
     username: username,
+    users: users
   });
+});
+
+
+app.get("/profil", async (req, res) => {
+  if (req.session.username) { // verify if the user is connected
+    const username = req.session.username;
+    let userQuiz = await Quiz.find({ from: username }).toArray();
+    res.render("profil.ejs", {
+      username: username,
+      data: userQuiz,
+    });
+  } else {
+    res.redirect("/");
+  };
+});
+
+app.post("/destroy", async (req, res) => {
+  const quizId = new ObjectId(req.body.quizId);
+
+  if (!req.session.username) {
+    return res.status(404).json({ status: "error", message: "User not found" });
+  };
+  
+  await Quiz.findOneAndDelete({ _id: quizId });
+
+  res.json({ status: "success", message: "Quiz unliked successfully" });
 });
 
 
@@ -157,6 +183,8 @@ app.post("/play", async (req, res) => {
 
 app.post("/endquiz", async (req, res) => {
   let score = req.body.score;
+  req.session.score = score;
+  req.session.total = req.body.total;
   if (req.session.username) {
     await User.findOneAndUpdate(
       { username: req.session.username },
@@ -166,6 +194,11 @@ app.post("/endquiz", async (req, res) => {
   res.json({ status: "success", message: "Data received successfully" });
 });
 
+app.get("/end", (req, res) => {
+  const score = req.session.score || 0;
+  const total = req.session.total || 0;
+  res.render("endquiz.ejs", {score: score, total: total});
+});
 
 app.post("/like", async (req, res) => {
   const quizId = new ObjectId(req.body.quizId);
@@ -205,7 +238,10 @@ app.post("/like", async (req, res) => {
   }
 });
 
-app.use(function(req,res){
+
+app.get("*", (req, res) => {
   const username = req.session.username || "Se connecter";
-  res.status(404).render('404.ejs',{ username: username});
+  res.status(404).render("404.ejs", {
+    username: username
+  });
 });
