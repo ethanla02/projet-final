@@ -20,13 +20,16 @@ function renderQuizzes(data) {
         // Create the quiz div
         let quizDiv = document.createElement('div');
         quizDiv.classList.add('quiz');
-
-        // Create h3 element for Name Creator
-        let nameCreator = document.createElement('h4');
-        nameCreator.textContent = quiz.from;
-        nameCreator.style.marginTop = '10px';
-        nameCreator.style.textAlign = 'left';
-        nameCreator.style.paddingLeft = '23px';
+        
+        let nameCreator;
+        if (imgPath == "coeur.png") {
+            // Create h3 element for Name Creator
+            nameCreator = document.createElement('h4');
+            nameCreator.textContent = quiz.from;
+            nameCreator.style.marginTop = '10px';
+            nameCreator.style.textAlign = 'left';
+            nameCreator.style.paddingLeft = '23px';
+        };
 
         // Create a button with a link for Name Quiz
         let nameQuizButton = document.createElement('button');
@@ -68,12 +71,15 @@ function renderQuizzes(data) {
         likeContainer.style.display = 'flex';
         likeContainer.style.justifyContent = 'right';
         likeContainer.style.paddingRight = '18px';
-
-        // Create h4 element for Like Count
-        let likeCount = document.createElement('h4');
-        likeCount.classList.add('compteur-like');
-        likeCount.textContent = `${quiz.like}`;
-        likeCount.style.marginTop = '9px';
+        
+        let likeCount;
+        if (imgPath == "coeur.png") {
+            // Create h4 element for Like Count
+            likeCount = document.createElement('h4');
+            likeCount.classList.add('compteur-like');
+            likeCount.textContent = `${quiz.like}`;
+            likeCount.style.marginTop = '9px';
+        };
 
         // Create button for Like
         let likeButton = document.createElement('button');
@@ -82,7 +88,7 @@ function renderQuizzes(data) {
         (function (currentQuiz) {
             likeButton.addEventListener('click', async function (event) {
                 // Perform a POST request when the button is clicked
-                fetch('/like', {
+                fetch(appPath, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -93,7 +99,7 @@ function renderQuizzes(data) {
                 .then(data => {
                     console.log('Success:', data);
                     // Handle success
-                    window.location.href = '/';
+                    window.location.href = goTo;
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -102,17 +108,21 @@ function renderQuizzes(data) {
         })(quiz);
 
         let heartImage = document.createElement('img');
-        heartImage.src = 'coeur.png';
+        heartImage.src = imgPath;
         heartImage.style.width = '30px';
         heartImage.style.height = '30px';
         likeButton.appendChild(heartImage);
 
         // Append Like Count and Like Button to the container
-        likeContainer.appendChild(likeCount);
+        if (imgPath == "coeur.png") { 
+            likeContainer.appendChild(likeCount);
+        };
         likeContainer.appendChild(likeButton);
 
         // Append all elements to the quiz div
-        quizDiv.appendChild(nameCreator);
+        if (imgPath == "coeur.png") {
+            quizDiv.appendChild(nameCreator);
+        };
         quizDiv.appendChild(quizLink);
         quizDiv.appendChild(likeContainer);
 
