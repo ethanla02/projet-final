@@ -1,53 +1,68 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="mainpage.css">
-<link rel="icon" type="image/x-icon" href="logo.jpg">
-<title>connection</title>
-</head>
-<body>
-<nav>
-    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
-    <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercher un quiz" size="80%" height="50%"  />
-    <ul>
-        <li><a href="/" >accueil</a></li>
-        <li><a href="/classement">classement</a></li>
-        <li><a href="/creation">créer un quiz</a></li>
-        <li><a href="/login" class = "active"><%= username %></a></li>
-    </ul>
-</nav>
-		<% if (error_login) { %>
-			<div class="error-message">
-				Utilisateur invalide : nom d'utilisateur ou mot de passe incorrect.
-			</div>
-		<% } %>
+<html>
+  <head>
+    <title>Se connecter</title>
+    <link rel="stylesheet" type="text/css" href="\content\style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="main">
+      <input type="checkbox" id="chk" aria-hidden="true" />
+      <div class="signup">
+        <form action="login" method="post" class="form-fields">
+          <label for="chk" aria-hidden="true">Sign up</label>
+          <% if (error_register) { %>
+          <div class="error-message">
+            Utilisateur invalide : le nom d'utilisateur est déjà utilisé.
+          </div>
+          <% } %>
+          <input
+            type="text"
+            name="registerUsername"
+            id="registerUsername"
+            required
+            placeholder="Nom d'Utilisateur"
+          />
 
-		<div class="login_container">
-			<h2>Se connecter</h2>
-			<form action="login" method="post" class="form-fields">
-				<input type="text" name="loginUsername" id="loginUsername" required placeholder="Nom d'Utilisateur">
-				<input type="password" name="loginPassword" id="loginPassword" required placeholder="Mot de Passe">
-				<button type="submit" class="btn">Connexion</button>
-			</form>
-		</div>
-		<br>
-		<h2>OU</h2>
-		<br>
+          <input
+            type="password"
+            name="registerPassword"
+            id="registerPassword"
+            required
+            placeholder="Mot de Passe"
+          />
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
 
-		<% if (error_register) { %>
-			<div class="error-message">
-				Utilisateur invalide : le nom d'utilisateur est déjà utilisé.
-			</div>
-		<% } %>
-
-		<div class="login_container">
-			<h2>S'enregistrer</h2>
-			<form action="login" method="post" class="form-fields">
-				<input type="text" name="registerUsername" id="registerUsername" required placeholder="Nom d'Utilisateur">
-				<input type="password" name="registerPassword" id="registerPassword" required placeholder="Mot de Passe">
-				<button type="submit" class="btn">S'enregistrer</button>
-			</form>
-		</div>
-	</body>
+      <div class="login">
+        <form action="login" method="post" class="form-fields">
+          <label for="chk" aria-hidden="true">Login</label>
+          <% if (error_login) { %>
+          <div class="error-message">
+            Utilisateur invalide : nom d'utilisateur ou mot de passe incorrect.
+          </div>
+          <% } %>
+          <input
+            type="text"
+            name="loginUsername"
+            id="loginUsername"
+            required
+            placeholder="Nom d'Utilisateur"
+          />
+          <input
+            type="password"
+            name="loginPassword"
+            id="loginPassword"
+            required
+            placeholder="Mot de Passe"
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
