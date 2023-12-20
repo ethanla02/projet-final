@@ -4,82 +4,27 @@
     <meta charset="UTF-8" />
     <title>Classement</title>
     <link rel="stylesheet" href="mainpage.css" />
-    <link rel="icon" type="image/x-icon" href="logo.jpg" />
+    <link rel="icon" type="image/x-icon" href="logo.png" />
+    <script src="classement.js"></script>
   </head>
   <body>
     <nav>
-      <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
-      <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercher un quiz" size="80%" height="50%"  />
+      <a href="/"><img src="logo.png" alt="logo hoot'let" style="float:left" height=100px ></a>
       <ul>
-          <li><a href="/" >accueil</a></li>
-          <li><a href="/classement" class = "active">classement</a></li>
-          <li><a href="/creation">créer un quiz</a></li>
+          <li><a href="/" class = "active">Accueil</a></li>
+          <li><a href="/classement">Classement</a></li>
+          <li><a href="/creation">Créer un quiz</a></li>
           <li><a href="/login"><%= username %></a></li>
+          <% if (username != "Se connecter") { %>
+            <li><a href="/profil">Profil</a></li>
+          <% } %>
       </ul>
     </nav>
-    <div class="container">
-      <h1>Classement</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Date</th>
-            <th>Parties jouées</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>John Doe</td>
-            <td>01/01/2023</td>
-            <td>250</td>
-            <td>250</td>
-          </tr>
-          <tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-            <tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-          </tr><tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-          </tr><tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-          </tr><tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-          </tr><tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-          </tr><tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-          </tr><tr>
-            <td>Jane Smith</td>
-            <td>05/01/2023</td>
-            <td>250</td>
-            <td>300</td>
-          </tr>
-          </tr>
-          <!-- Ajoute d'autres lignes ici avec plus de données -->
-        </tbody>
-      </table>
-    </div>
+    <div id="table-container"></div>
+
+  <script>
+    createTable(<%- JSON.stringify(users || []) %>);
+  </script>
+
   </body>
 </html>
