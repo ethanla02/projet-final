@@ -1,9 +1,9 @@
-function addAnswerField(questionNumber) {
-    const answersContainer = document.getElementById(`answersContainer${questionNumber}`);
+function addAnswerField(content="Réponse fausse") {
+    const answersContainer = document.getElementById(`answersContainer${questionCounter}`);
     const answerInput = document.createElement('input');
     answerInput.type = 'text';
-    answerInput.name = `answer${questionNumber}[]`;
-    answerInput.placeholder = 'Enter answer';
+    answerInput.name = `answer${questionCounter}[]`;
+    answerInput.placeholder = content;
     answersContainer.appendChild(answerInput);
 }
 
@@ -13,7 +13,7 @@ function addQuestionField() {
     const form = document.getElementById('quizForm');
 
     const questionContainer = document.createElement('div');
-    questionContainer.classList.add('question-container');
+    questionContainer.classList.add('quiz_container');
 
     const label = document.createElement('label');
     label.htmlFor = `question${questionCounter}`;
@@ -24,20 +24,35 @@ function addQuestionField() {
     input.name = `question${questionCounter}`;
     input.required = true;
 
-    const addButton = document.createElement('button');
-    addButton.type = 'button';
-    addButton.textContent = 'Add Answer';
-    addButton.onclick = () => addAnswerField(questionCounter);
+    const addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.textContent = "Ajouter une réponse";
+    addButton.classList.add("quiz_button");
+    addButton.onclick = () => addAnswerField();
 
     const answersContainer = document.createElement('div');
     answersContainer.id = `answersContainer${questionCounter}`;
 
     questionContainer.appendChild(label);
     questionContainer.appendChild(input);
-    questionContainer.appendChild(addButton);
     questionContainer.appendChild(answersContainer);
+    questionContainer.appendChild(addButton);
 
-    form.insertBefore(questionContainer, form.lastElementChild);
+    const addQuestionButton = document.getElementById("addButton");
+    form.insertBefore(questionContainer, addQuestionButton);
+
+    const lastQuestionContainer = document.getElementsByClassName('quiz_container')[questionCounter - 2];
+    if (lastQuestionContainer) {
+        const lastAddButton = lastQuestionContainer.querySelector('button');
+        if (lastAddButton) {
+            lastAddButton.remove();
+        }
+    }
+
+    addAnswerField((content = "Réponse correcte"));
+    for (let i = 1; i <= 3; i++) {
+        addAnswerField();
+    }
 }
 
 async function submitQuizz(event, user) {
