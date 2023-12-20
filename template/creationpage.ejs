@@ -3,52 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <link rel="icon" type="image/x-icon" href="logo.png">
     <link rel="stylesheet" href="mainpage.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Quiz Form</title>
+    <title>Création</title>
     <style>
-        .question-container {
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
 <nav>
-    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
-    <input style="margin-bottom: 0px a; display: inline;" name="research" id="research" type="search" placeholder="Rechercher un quiz" size="80%" height="50%"  />
+    <a href="/"><img src="logo.png" alt="logo hoot'let" style="float:left" height=100px ></a>
     <ul>
-        <li><a href="/" >accueil</a></li>
-        <li><a href="/classement">classement</a></li>
-        <li><a href="/creation" class = "active">créer un quiz</a></li>
+        <li><a href="/" class = "active">Accueil</a></li>
+        <li><a href="/classement">Classement</a></li>
+        <li><a href="/creation">Créer un quiz</a></li>
         <li><a href="/login"><%= username %></a></li>
+        <% if (username != "Se connecter") { %>
+			<li><a href="/profil">Profil</a></li>
+		<% } %>
     </ul>
 </nav>
 <h1>Quiz Form</h1>
 
 <form id="quizForm" onsubmit="submitQuizz(event, <%= JSON.stringify(username) %>)">
 
-    <label for="name">Name:</label>
-    <input type="text" name="name" required>
+    <div class="quiz_title_container">
+        <label for="name">Nom du quiz:</label>
+        <input type="text" name="name" maxlength="20" required>
 
-    <label for="category">Category:</label>
-    <input type="text" name="category" required>
-
-    <div class="question-container">
-        <label for="question1">Question 1:</label>
-        <input type="text" name="question1" required>
-        <button type="button" onclick="addAnswerField(1)">Add Answer</button>
-        <div id="answersContainer1"></div>
+        <label for="category">Catégorie:</label>
+        <select id="category" name="category" class="dropdown" required>
+            <option value="Mathématique">Mathématique</option>
+            <option value="Francais">Francais</option>
+            <option value="Culture générale">Culture générale</option>
+            <option value="Animaux">Animaux</option>
+            <option value="Histoire">Histoire</option>
+            <option value="Géographie">Géographie</option>
+            <option value="Musique">Musique</option>
+            <option value="Cinéma">Cinéma</option>
+            <option value="Science">Science</option>
+            <option value="Sport">Sport</option>
+        </select>
     </div>
-
-    <button type="button" onclick="addQuestionField()">Add Question</button>
-
-    <button type="submit">Submit</button>
+    
+    <div class="cont" id="addButton">
+    <button type="button" onclick="addQuestionField()" class="submit_button">Ajouter une question</button>
+    <button type="submit" class="submit_button">Soumettre</button>
+</div>
 </form>
 
 <script src="/creation.js"></script>
 <script>
-    let questionCounter = 1;
+    // add the first field automatically
+    let questionCounter = 0;
+    addQuestionField()
 </script>
 
 </body>
