@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="mainpage.css">
     <title>Error 404</title>
-    <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <link rel="icon" type="image/x-icon" href="logo.png">
 </head>
 <body>
-<nav>
-    <a href="/"><img src="logo.jpg" alt="logo hoot'let" style="float:left" height=100px ></a>
-    <input style="margin-bottom: 0 ; display: inline;" name="research" id="research" type="search" placeholder="Rechercer un quiz" size="80%" height="50%"  />
-    <ul>
-        <li><a href="/">accueil</a></li>
-        <li><a href="/classement">classement</a></li>
-        <li><a href="/créationpage">créer un quiz</a></li>
-        <li><a href="/loginpage"><%= username %></a></li>
-    </ul>
-</nav>
+    <nav>
+        <a href="/"><img src="logo.png" alt="logo hoot'let" style="float:left" height=100px ></a>
+        <ul>
+            <li><a href="/" class = "active">Accueil</a></li>
+            <li><a href="/classement">Classement</a></li>
+            <li><a href="/creation">Créer un quiz</a></li>
+            <li><a href="/login"><%= username %></a></li>
+            <% if (username != "Se connecter") { %>
+                <li><a href="/profil">Profil</a></li>
+            <% } %>
+        </ul>
+    </nav>
 <div class="error">
     <h1>ERREUR 404</h1>
-    <p>La page que vous recherchez n'éxiste pas</p>
+    <p>La page que vous recherchez n'existe pas</p>
 </div>
 </body>
 </html>
