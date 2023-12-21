@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz End Page</title>
-    <link rel="stylesheet" href="mainpage.css" />
-</head>
-<body>
-
-    <h1 style="padding-top: 50px;">Quiz Fini!</h1>
-
-    <p>Félicitation! Vous avez fini le quiz avec un score total de <%= score %>/<%= total %>.</p>
-
-    <li class="back"><a href="/">Retourner à la page d'accueil</a></li>
-
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Quiz End Page</title>
+		<link rel="stylesheet" href="mainpage.css" />
+	</head>
+	<body>
+		<h1 style="padding-top: 50px;">Quiz Fini!</h1>
+		<p>
+			Félicitation! Vous avez fini le quiz avec un score total de 
+			<%= score %>
+			/
+			<%= total %>
+			.
+		</p>
+		<li class="back"><a href="/">Retourner à la page d'accueil</a></li>
+	</body>
 </html>
+
