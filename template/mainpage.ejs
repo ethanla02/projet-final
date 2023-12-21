@@ -21,6 +21,12 @@
     </ul>
 </nav>
 <div class="quiz-wrapper" id="quiz-container"></div>
+<% if (username == "assistant") { %>
+<br><br>
+<div class="butsub"><a href="/getExemple"><button class="grey_button" name="button">remplir la page d'exemples</button></a></div>
+<br>
+<div class="butsub"><a href="/delete"><button class="grey_button" name="button">vider la page</button></a></div>
+<% } %>
 </body>
 <script src="/script.js"></script>
 <script>
