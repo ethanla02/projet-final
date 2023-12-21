@@ -9,3 +9,4 @@ describe('Test de la route POST /creation', () => {
         assert.strictEqual(response.header['location'], '/login');
     });
 });
+
