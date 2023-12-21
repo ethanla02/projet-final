@@ -8,6 +8,8 @@ app.set("views", "template");
 
 app.use(express.static(__dirname));
 
+const { quizExemples } = require('./quiz_exemple.js');
+
 app.use(bodyParser.json());
 // any files in the 'content' directory can be requested by clients (browsers) and will be served by the Express server
 app.use(express.static("content"));
@@ -29,7 +31,7 @@ const { ObjectId } = require('mongodb');
 var url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 const dbName = "DataQuizz";
-const Quiz = client.db(dbName).collection("Quizz"); // Quiz( {quiz: [[Q,[R]],...], from, like, name, category} )
+const Quiz = client.db(dbName).collection("Quizz"); // Quiz( {quiz: [[Q,[R]],...], from, like, name, date, category} )
 const User = client.db(dbName).collection("User"); // User( {username, password, score, likedQuiz: []} )
 
 client.connect().then(console.log("Successful MongoDB connection"));
@@ -239,11 +241,25 @@ app.post("/like", async (req, res) => {
 });
 
 
+app.get('/getExemple', async (req, res) => {
+  if (req.session.username == "assistant") {
+    await Quiz.deleteMany();
+    await Quiz.insertMany(quizExemples);
+  };
+  res.redirect("/");
+});
+
+app.get('/delete', async (req, res) => {
+  if (req.session.username == "assistant") {
+    await Quiz.deleteMany();
+  };
+  res.redirect("/");
+});
+
+
 app.get("*", (req, res) => {
   const username = req.session.username || "Se connecter";
   res.status(404).render("404.ejs", {
     username: username
   });
 });
-
-module.exports = app;
