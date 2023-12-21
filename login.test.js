@@ -16,4 +16,9 @@ describe('Test des routes de login', () => {
         const response = await request(app).post('/login').send({registerUsername: 'test4', registerPassword: 'test4',});
         assert.strictEqual(response.status, 302);
     });
+    it('devrait s inscrire avec succès même si un autre utilisateur à le même mot de passe', async () => {
+        const response = await request(app).post('/login').send({registerUsername: 'b-test', registerPassword: 'test',});
+        assert.strictEqual(response.status, 302);
+    });
 });
+
