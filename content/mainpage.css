@@ -323,3 +323,12 @@ h4 {
 	padding : 10px;
 	display: inline-block;
 }
+
+.grey_button {
+  background-color: #e0dede;
+  border: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 30px;
+  padding: 0 20px;
+}
