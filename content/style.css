@@ -144,3 +144,8 @@ nav ul li:hover::after {
   padding: 10 px;
   display: inline-block;
 }
+.back-to-home {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
