@@ -245,3 +245,5 @@ app.get("*", (req, res) => {
     username: username
   });
 });
+
+module.exports = app;
