@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Classement</title>
-		<link rel="stylesheet" href="mainpage.css" />
-		<link rel="icon" type="image/x-icon" href="logo.png" />
-		<script src="classement.js"></script>
-	</head>
-	<body>
-		<nav>
-			<a href="/"><img src="logo.png" alt="logo hoot'let" style="float:left" height=100px ></a>
-			<ul>
-				<li><a href="/" >Accueil</a></li>
-				<li><a href="/classement" class = "active">Classement</a></li>
-				<li><a href="/creation">Créer un quiz</a></li>
-				<li><a href="/login"><%= username %></a></li>
-				<% if (username != "Se connecter") { %>
-				<li><a href="/profil">Profil</a></li>
-				<% } %>
-			</ul>
-		</nav>
-		<div id="table-container"></div>
-		<script>
-			createTable(<%- JSON.stringify(users || []) %>);
-		</script>
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Classement</title>
+    <link rel="stylesheet" href="mainpage.css" />
+    <link rel="icon" type="image/x-icon" href="logo.png" />
+    <script src="classement.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="/"><img src="logo.png" alt="logo hoot'let" style="float:left" height=100px ></a>
+      <ul>
+          <li><a href="/" >Accueil</a></li>
+          <li><a href="/classement" class = "active">Classement</a></li>
+          <li><a href="/creation">Créer un quiz</a></li>
+          <li><a href="/login"><%= username %></a></li>
+          <% if (username != "Se connecter") { %>
+            <li><a href="/profil">Profil</a></li>
+          <% } %>
+      </ul>
+    </nav>
+    <div id="table-container"></div>
+
+    <script>
+      createTable(<%- JSON.stringify(users || []) %>);
+    </script>
+
+  </body>
+  </html>

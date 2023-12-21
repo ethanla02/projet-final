@@ -29,7 +29,7 @@ const { ObjectId } = require('mongodb');
 var url = "mongodb://127.0.0.1:27017";
 const client = new MongoClient(url);
 const dbName = "DataQuizz";
-const Quiz = client.db(dbName).collection("Quizz"); // Quiz( {quiz: [[Q,[R]],...], from, like, name, date, category} )
+const Quiz = client.db(dbName).collection("Quizz"); // Quiz( {quiz: [[Q,[R]],...], from, like, name, category} )
 const User = client.db(dbName).collection("User"); // User( {username, password, score, likedQuiz: []} )
 
 client.connect().then(console.log("Successful MongoDB connection"));
